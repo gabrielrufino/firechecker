@@ -2,21 +2,24 @@ import { Request, Response, NextFunction } from 'express'
 import * as firebase from 'firebase-admin'
 
 interface Options {
-  header: string;
-  prefix: string;
+  header: string
+  type: string
 }
 
-function setCredential (credential: any) {
+export function setCredential (credential: object) {
   firebase.initializeApp({
     credential: firebase.credential.cert(credential),
   })
 }
 
-function firechecker (options: Options) {
-  const { header } = options
+export function firechecker (options: Options) {
+  const {
+    header = 'Authorization',
+    type = 'Bearer'
+  } = options
 
-  return async function (request: Request, response: Response, next: NextFunction) {
-    const authorization = request.headers[header.toLowerCase()]
+  return async function (request: Request, response: Response, next: NextFunction): Promise<void> {
+    const authorization = request.get(header)
 
     if (authorization) {
       const [prefix, token] = authorization.split(' ')
@@ -28,13 +31,15 @@ function firechecker (options: Options) {
 
         await next()
       } catch (error) {
-        return response.status(403).json(error)
+        response.status(403).json(error)
       }
     } else {
-      return response.status(403)
+      response.status(403)
     }
   }
 }
 
-export default firechecker
-export { setCredential }
+export default {
+  setCredential,
+  firechecker
+}

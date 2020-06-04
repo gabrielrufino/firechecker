@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -54,24 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.setCredential = void 0;
-var firebase = __importStar(require("firebase-admin"));
+exports.__esModule = true;
+exports.firechecker = exports.setCredential = void 0;
+var firebase = require("firebase-admin");
 function setCredential(credential) {
     firebase.initializeApp({
-        credential: firebase.credential.cert(credential),
+        credential: firebase.credential.cert(credential)
     });
 }
 exports.setCredential = setCredential;
 function firechecker(options) {
-    var header = options.header;
+    var _a = options.header, header = _a === void 0 ? 'Authorization' : _a, _b = options.type, type = _b === void 0 ? 'Bearer' : _b;
     return function (request, response, next) {
         return __awaiter(this, void 0, void 0, function () {
             var authorization, _a, prefix, token, user, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        authorization = request.headers[header];
+                        authorization = request.get(header);
                         if (!authorization) return [3 /*break*/, 6];
                         _a = authorization.split(' '), prefix = _a[0], token = _a[1];
                         _b.label = 1;
@@ -88,13 +69,20 @@ function firechecker(options) {
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _b.sent();
-                        return [2 /*return*/, response.status(403).json(error_1)];
+                        response.status(403).json(error_1);
+                        return [3 /*break*/, 5];
                     case 5: return [3 /*break*/, 7];
-                    case 6: return [2 /*return*/, response.status(403)];
+                    case 6:
+                        response.status(403);
+                        _b.label = 7;
                     case 7: return [2 /*return*/];
                 }
             });
         });
     };
 }
-exports.default = firechecker;
+exports.firechecker = firechecker;
+exports["default"] = {
+    setCredential: setCredential,
+    firechecker: firechecker
+};
