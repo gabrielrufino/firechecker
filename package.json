@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gabrielrufino/firechecker/issues"
   },
-  "homepage": "https://github.com/gabrielrufino/firechecker#readme"
+  "homepage": "https://github.com/gabrielrufino/firechecker#readme",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
 }
