@@ -6,13 +6,7 @@ interface Options {
   type: string
 }
 
-export function setCredential (credential: object) {
-  firebase.initializeApp({
-    credential: firebase.credential.cert(credential),
-  })
-}
-
-export function firechecker (options: Options) {
+function firechecker (options: Options) {
   const {
     header = 'Authorization',
     type = 'Bearer'
@@ -24,22 +18,27 @@ export function firechecker (options: Options) {
     if (authorization) {
       const [prefix, token] = authorization.split(' ')
 
-      try {
-        const user = await firebase
-          .auth()
-          .verifyIdToken(token)
-
-        await next()
-      } catch (error) {
-        response.status(403).json(error)
+      if (prefix !== type) {
+        response.status(401).json({
+          error: 'Invalid token type'
+        })
+      } else {
+        try {
+          await firebase
+            .auth()
+            .verifyIdToken(token)
+  
+          next()
+        } catch (error) {
+          response.status(401).json(error)
+        }
       }
     } else {
-      response.status(403)
+      response.status(401).json({
+        error: `Header ${header} empty`
+      })
     }
   }
 }
 
-export default {
-  setCredential,
-  firechecker
-}
+export = firechecker

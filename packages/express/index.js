@@ -35,54 +35,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.firechecker = exports.setCredential = void 0;
 var firebase = require("firebase-admin");
-function setCredential(credential) {
-    firebase.initializeApp({
-        credential: firebase.credential.cert(credential)
-    });
-}
-exports.setCredential = setCredential;
 function firechecker(options) {
     var _a = options.header, header = _a === void 0 ? 'Authorization' : _a, _b = options.type, type = _b === void 0 ? 'Bearer' : _b;
     return function (request, response, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var authorization, _a, prefix, token, user, error_1;
+            var authorization, _a, prefix, token, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         authorization = request.get(header);
-                        if (!authorization) return [3 /*break*/, 6];
+                        if (!authorization) return [3 /*break*/, 5];
                         _a = authorization.split(' '), prefix = _a[0], token = _a[1];
-                        _b.label = 1;
+                        if (!(prefix !== type)) return [3 /*break*/, 1];
+                        response.status(401).json({
+                            error: 'Invalid token type'
+                        });
+                        return [3 /*break*/, 4];
                     case 1:
-                        _b.trys.push([1, 4, , 5]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, firebase
                                 .auth()
                                 .verifyIdToken(token)];
                     case 2:
-                        user = _b.sent();
-                        return [4 /*yield*/, next()];
-                    case 3:
                         _b.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
+                        next();
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _b.sent();
-                        response.status(403).json(error_1);
-                        return [3 /*break*/, 5];
-                    case 5: return [3 /*break*/, 7];
-                    case 6:
-                        response.status(403);
-                        _b.label = 7;
-                    case 7: return [2 /*return*/];
+                        response.status(401).json(error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        response.status(401).json({
+                            error: "Header " + header + " empty"
+                        });
+                        _b.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
 }
-exports.firechecker = firechecker;
-exports["default"] = {
-    setCredential: setCredential,
-    firechecker: firechecker
-};
+module.exports = firechecker;
