@@ -1,8 +1,6 @@
 {
   "name": "firechecker",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Middleware for checking firebase authentication in Node.js APIs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/gabrielrufino/firechecker/issues"
   },
-  "homepage": "https://github.com/gabrielrufino/firechecker#readme"
+  "homepage": "https://github.com/gabrielrufino/firechecker#readme",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
 }
