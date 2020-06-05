@@ -26,4 +26,6 @@ app.get('/', (request, response) => {
     access: true
   })
 })
+
+app.listen(3000)
 ```
