@@ -3,6 +3,8 @@
   <h1 align="center">Firechecker</h1>
 </p>
 
+---
+
 **Firechecker** is a middleware for checking firebase authentication in Node.js APIs.
 
 ## Framework options
