@@ -36,8 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var firebase = require("firebase-admin");
+var defaultOptions = {
+    header: 'Authorization',
+    type: 'Bearer'
+};
 function firechecker(options) {
-    var _a = options.header, header = _a === void 0 ? 'Authorization' : _a, _b = options.type, type = _b === void 0 ? 'Bearer' : _b;
+    if (options === void 0) { options = defaultOptions; }
+    var header = options.header, type = options.type;
     return function (request, response, next) {
         return __awaiter(this, void 0, void 0, function () {
             var authorization, _a, prefix, token, error_1;
