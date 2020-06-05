@@ -1,7 +1,18 @@
 <p align="center">
   <img width="200px" src="./assets/logo.png">
+  <h1 align="center">Firechecker</h1>
 </p>
 
-# Firechecker
+---
 
-Middleware for checking firebase authentication in Node.js APIs
+**Firechecker** is a middleware for checking firebase authentication in Node.js APIs.
+
+## Framework options
+
+|           Framework          | NPM package                                                                | Downloads                                                                                                                                           |
+|:----------------------------:|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Express](/packages/express) | [@firechecker/express](https://www.npmjs.com/package/@firechecker/express) | [![badge](https://img.shields.io/npm/dw/@firechecker/express.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@firechecker/express) |
+
+## License 
+
+* See [LICENSE](/LICENSE)

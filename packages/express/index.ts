@@ -6,11 +6,13 @@ interface Options {
   type: string
 }
 
-function firechecker (options: Options) {
-  const {
-    header = 'Authorization',
-    type = 'Bearer'
-  } = options
+const defaultOptions: Options = {
+  header: 'Authorization',
+  type: 'Bearer'
+}
+
+function firechecker (options: Options = defaultOptions) {
+  const { header, type } = options
 
   return async function (request: Request, response: Response, next: NextFunction): Promise<void> {
     const authorization = request.get(header)
