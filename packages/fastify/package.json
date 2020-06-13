@@ -1,0 +1,18 @@
+{
+  "name": "@firechecker/fastify",
+  "version": "0.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel Rufino <contato@gabrielrufino.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.14.1",
+    "firebase-admin": "^8.12.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13"
+  }
+}
