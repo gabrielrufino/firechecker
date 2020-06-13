@@ -15,14 +15,14 @@ const defaultOptions: Options = {
 function firechecker (options: Options = defaultOptions): Middleware<Server, FastifyRequest, FastifyReply<ServerResponse>> {
   const { header, type } = options
 
-  return async function (request: FastifyRequest, reply: FastifyReply<ServerResponse>, next): Promise<void> {
-    const authorization = request.headers[header]
+  return async function (request: FastifyRequest, reply: FastifyReply<ServerResponse>, done): Promise<void> {
+    const authorization = request.headers[header.toLowerCase()]
 
     if (authorization) {
       const [prefix, token] = authorization.split(' ')
 
       if (prefix !== type) {
-        reply.status(401).send({
+        reply.code(401).send({
           error: 'Invalid token type'
         })
       } else {
@@ -31,13 +31,13 @@ function firechecker (options: Options = defaultOptions): Middleware<Server, Fas
             .auth()
             .verifyIdToken(token)
   
-          next()
+          done()
         } catch (error) {
-          reply.status(401).send(error)
+          reply.code(401).send(error)
         }
       }
     } else {
-      reply.status(401).send({
+      reply.code(401).send({
         error: `Header ${header} empty`
       })
     }

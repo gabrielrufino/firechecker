@@ -43,17 +43,17 @@ var defaultOptions = {
 function firechecker(options) {
     if (options === void 0) { options = defaultOptions; }
     var header = options.header, type = options.type;
-    return function (request, reply, next) {
+    return function (request, reply, done) {
         return __awaiter(this, void 0, void 0, function () {
             var authorization, _a, prefix, token, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        authorization = request.headers[header];
+                        authorization = request.headers[header.toLowerCase()];
                         if (!authorization) return [3 /*break*/, 5];
                         _a = authorization.split(' '), prefix = _a[0], token = _a[1];
                         if (!(prefix !== type)) return [3 /*break*/, 1];
-                        reply.status(401).send({
+                        reply.code(401).send({
                             error: 'Invalid token type'
                         });
                         return [3 /*break*/, 4];
@@ -64,15 +64,15 @@ function firechecker(options) {
                                 .verifyIdToken(token)];
                     case 2:
                         _b.sent();
-                        next();
+                        done();
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _b.sent();
-                        reply.status(401).send(error_1);
+                        reply.code(401).send(error_1);
                         return [3 /*break*/, 4];
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        reply.status(401).send({
+                        reply.code(401).send({
                             error: "Header " + header + " empty"
                         });
                         _b.label = 6;
