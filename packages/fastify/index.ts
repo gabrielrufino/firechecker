@@ -1,4 +1,5 @@
-import {FastifyRequest, FastifyReply } from 'fastify'
+import {FastifyRequest, FastifyReply, Middleware} from 'fastify'
+import {Server, ServerResponse} from 'http'
 import * as firebase from 'firebase-admin'
 
 interface Options {
@@ -11,17 +12,17 @@ const defaultOptions: Options = {
   type: 'Bearer'
 }
 
-function firechecker (options: Options = defaultOptions) {
+function firechecker (options: Options = defaultOptions): Middleware<Server, FastifyRequest, FastifyReply<ServerResponse>> {
   const { header, type } = options
 
-  return async function (request: FastifyRequest, reply: FastifyReply, next): Promise<void> {
+  return async function (request: FastifyRequest, reply: FastifyReply<ServerResponse>, next): Promise<void> {
     const authorization = request.headers[header]
 
     if (authorization) {
       const [prefix, token] = authorization.split(' ')
 
       if (prefix !== type) {
-        reply.status(401).json({
+        reply.code(401).send({
           error: 'Invalid token type'
         })
       } else {
@@ -32,11 +33,11 @@ function firechecker (options: Options = defaultOptions) {
   
           next()
         } catch (error) {
-          reply.status(401).json(error)
+          reply.code(401).send(error)
         }
       }
     } else {
-      reply.status(401).json({
+      reply.code(401).send({
         error: `Header ${header} empty`
       })
     }
