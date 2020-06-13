@@ -22,7 +22,7 @@ function firechecker (options: Options = defaultOptions): Middleware<Server, Fas
       const [prefix, token] = authorization.split(' ')
 
       if (prefix !== type) {
-        reply.code(401).send({
+        reply.status(401).send({
           error: 'Invalid token type'
         })
       } else {
@@ -33,11 +33,11 @@ function firechecker (options: Options = defaultOptions): Middleware<Server, Fas
   
           next()
         } catch (error) {
-          reply.code(401).send(error)
+          reply.status(401).send(error)
         }
       }
     } else {
-      reply.code(401).send({
+      reply.status(401).send({
         error: `Header ${header} empty`
       })
     }

@@ -53,7 +53,7 @@ function firechecker(options) {
                         if (!authorization) return [3 /*break*/, 5];
                         _a = authorization.split(' '), prefix = _a[0], token = _a[1];
                         if (!(prefix !== type)) return [3 /*break*/, 1];
-                        reply.code(401).send({
+                        reply.status(401).send({
                             error: 'Invalid token type'
                         });
                         return [3 /*break*/, 4];
@@ -68,11 +68,11 @@ function firechecker(options) {
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _b.sent();
-                        reply.code(401).send(error_1);
+                        reply.status(401).send(error_1);
                         return [3 /*break*/, 4];
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        reply.code(401).send({
+                        reply.status(401).send({
                             error: "Header " + header + " empty"
                         });
                         _b.label = 6;
