@@ -1,6 +1,6 @@
 {
   "name": "@firechecker/fastify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Middleware for checking firebase authentication in Fastify APIs",
   "main": "index.js",
   "scripts": {
