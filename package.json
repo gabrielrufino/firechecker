@@ -15,6 +15,7 @@
   },
   "homepage": "https://github.com/gabrielrufino/firechecker#readme",
   "devDependencies": {
+    "lerna": "^3.22.1",
     "typescript": "^3.9.5"
   }
 }
