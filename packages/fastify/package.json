@@ -1,7 +1,7 @@
 {
   "name": "@firechecker/fastify",
   "version": "0.0.6",
-  "description": "",
+  "description": "Middleware for checking firebase authentication in Fastify APIs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
