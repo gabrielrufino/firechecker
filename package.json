@@ -1,6 +1,7 @@
 {
   "name": "firechecker",
   "description": "Middleware for checking firebase authentication in Node.js APIs",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
