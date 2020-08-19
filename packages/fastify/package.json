@@ -1,6 +1,6 @@
 {
   "name": "@firechecker/fastify",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Middleware for checking firebase authentication in Fastify APIs",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,10 @@
   "author": "Gabriel Rufino <contato@gabrielrufino.com>",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^2.15.0",
-    "firebase-admin": "^8.12.1"
+    "fastify": "^2.15.3",
+    "firebase-admin": "^8.13.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.13"
+    "@types/node": "^14.6.0"
   }
 }
