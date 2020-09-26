@@ -1,6 +1,6 @@
 {
   "name": "@firechecker/express",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Middleware for checking firebase authentication in Express APIs",
   "main": "index.js",
   "scripts": {
